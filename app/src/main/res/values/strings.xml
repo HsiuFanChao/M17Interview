@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">M17Interview</string>
+    <string name="search_btn_text">Search</string>
+    <string name="search_content_hint">Enter user name</string>
+
+    <string name="retry_dialog_hint">Oops, Something wrong! Retry ?</string>
+    <string name="retry_dialog_pos_button">Yes</string>
+    <string name="retry_dialog_neg_button">No</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_user_avatar" translation_description="Accessibility text for user avatar">Avatar of user</string>
+
+    <string name="edi_text_hint">Please enter the user name</string>
+    <string name="name">Name:</string>
+    <string name="id">Id:</string>
+    <string name="profile2_ui_description">This is 2nd style, 2 x 1 banner style</string>
+    <string name="profile3_ui_description">This is 3rd style, 2 x 2 block style</string>
+    <string name="profile3_ui_dummy_description">I do not know what to write here, and the blank space makes the user interface so ugly.\nAn app a day, keeps doctors away</string>
+    <string name="empty_result">No such user :)</string>
+</resources>
