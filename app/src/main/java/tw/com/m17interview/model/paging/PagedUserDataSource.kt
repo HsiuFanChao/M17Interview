@@ -53,16 +53,16 @@ class PagedUserDataSource(private val networkService: NetworkService,
 
                 callback.onResult(convertToItemViewModel(userList), null, nextPageUrl)
             } else {
-                initialLoad.postValue(NetworkState.error("error code: ${response.code()}"))
-                networkState.postValue(NetworkState.error("error code: ${response.code()}"))
+                initialLoad.postValue(NetworkState.FAILED("error code: ${response.code()}"))
+                networkState.postValue(NetworkState.FAILED("error code: ${response.code()}"))
                 retry = {
                     loadInitial(params, callback)
                 }
             }
 
         } catch (ioException: IOException) {
-            initialLoad.postValue(NetworkState.error(ioException.message))
-            networkState.postValue(NetworkState.error(ioException.message))
+            initialLoad.postValue(NetworkState.FAILED(ioException.message))
+            networkState.postValue(NetworkState.FAILED(ioException.message))
             retry = {
                 loadInitial(params, callback)
             }
@@ -89,13 +89,13 @@ class PagedUserDataSource(private val networkService: NetworkService,
 
                 callback.onResult(convertToItemViewModel(userList), nextPageUrl)
             } else {
-                networkState.postValue(NetworkState.error("error code: ${rawResponse.code()}"))
+                networkState.postValue(NetworkState.FAILED("error code: ${rawResponse.code()}"))
                 retry = {
                     loadAfter(params, callback)
                 }
             }
         } catch (ioException: IOException) {
-            networkState.postValue(NetworkState.error(ioException.message))
+            networkState.postValue(NetworkState.FAILED(ioException.message))
             retry = {
                 loadAfter(params, callback)
             }
