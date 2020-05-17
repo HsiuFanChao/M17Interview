@@ -16,17 +16,15 @@ import kotlin.random.Random
  * 但因為人資回信都要半天以上，避免此次作業做不完，
  * 所以我直接採用了第三種解決方案．
  */
-object ModelProcessHelper {
+class ModelProcessHelper(private val random: RandomViewTypeProvider = DefaultRandomViewTypeProvider()) {
 
     fun convertToItemViewModel(userList: List<User>): List<ItemViewModel> {
 
         val items = mutableListOf<ItemViewModel>()
         var index = 0;
-        val random = Random(100)
         while (index < userList.size) {
 
-            val viewType = random.nextInt(3) + 1
-
+            val viewType = random.getNextViewType()
             when (viewType) {
                 GRID_VIEW_TYPE -> {
 
@@ -69,4 +67,15 @@ object ModelProcessHelper {
         }
         return items
     }
+}
+
+interface RandomViewTypeProvider {
+    fun getNextViewType(): Int
+}
+
+class DefaultRandomViewTypeProvider(seed: Int = 100): RandomViewTypeProvider {
+
+    private val random = Random(seed)
+
+    override fun getNextViewType() = random.nextInt(3) + 1
 }

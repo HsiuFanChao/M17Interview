@@ -8,11 +8,12 @@ import okhttp3.Request
 import tw.com.m17interview.model.network.NetworkResponse
 import tw.com.m17interview.model.network.NetworkService
 import tw.com.m17interview.model.network.NetworkState
-import tw.com.m17interview.util.ModelProcessHelper.convertToItemViewModel
+import tw.com.m17interview.util.ModelProcessHelper
 import tw.com.m17interview.viewmodel.ItemViewModel
 import java.io.IOException
 
 class PagedUserDataSource(private val networkService: NetworkService,
+                          private val modelProcessHelper: ModelProcessHelper,
                           private val userName: String): PageKeyedDataSource<String, ItemViewModel>() {
 
     val networkState = MutableLiveData<NetworkState>()
@@ -51,7 +52,7 @@ class PagedUserDataSource(private val networkService: NetworkService,
                 networkState.postValue(NetworkState.LOADED)
                 initialLoad.postValue(NetworkState.LOADED)
 
-                callback.onResult(convertToItemViewModel(userList), null, nextPageUrl)
+                callback.onResult(modelProcessHelper.convertToItemViewModel(userList), null, nextPageUrl)
             } else {
                 initialLoad.postValue(NetworkState.FAILED("error code: ${response.code()}"))
                 networkState.postValue(NetworkState.FAILED("error code: ${response.code()}"))
@@ -87,7 +88,7 @@ class PagedUserDataSource(private val networkService: NetworkService,
                 val response: NetworkResponse = Gson().fromJson(rawResponse.body()?.string(), NetworkResponse::class.java)
                 val userList = response.items
 
-                callback.onResult(convertToItemViewModel(userList), nextPageUrl)
+                callback.onResult(modelProcessHelper.convertToItemViewModel(userList), nextPageUrl)
             } else {
                 networkState.postValue(NetworkState.FAILED("error code: ${rawResponse.code()}"))
                 retry = {

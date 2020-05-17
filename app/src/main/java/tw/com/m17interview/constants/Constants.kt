@@ -19,3 +19,8 @@ const val BLOCK_VIEW_TYPE = 3
  * Default view type.
  */
 const val DEFAULT_VIEW_TYPE = BANNER_VIEW_TYPE
+
+/**
+ * The size used for network API request.
+ */
+const val PAGE_SIZE = 20
